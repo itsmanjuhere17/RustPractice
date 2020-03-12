@@ -7,7 +7,12 @@ fn main() {
     //println!("Printable is: {:?}",DebugDummy(10));
 
     println!("Guessing Number Game");
+    let mut count=0;
     loop {
+        if count==3 {
+            println!("### EXITING GAME ###");
+            break;
+        }
         let random=rand::thread_rng().
             gen_range(1,101); //Here, upper bound is exclusive i.e range is from 1 to 100 and not 101.
 
@@ -27,8 +32,13 @@ fn main() {
             }
         };
         match guess.cmp(&random) {
-            Ordering::Less => println!("Too Small"),
-            Ordering::Greater => println!("Too big"),
+            Ordering::Less => {
+                count+=1;
+                println!("Too Small");
+            },
+            Ordering::Greater => {
+                count+=1;
+                println!("Too big")},
             Ordering::Equal => {
                 println!("You Win!!");
                 break;
