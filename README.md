@@ -1,0 +1,2 @@
+# RustPractice
+Practicing Rust Stuff
