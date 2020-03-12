@@ -52,4 +52,27 @@ fn main() {
     println!("Old var is:{}",var);
     let var = "Manju"; //This is called Shadowing.
     println!("New var is:{}",var);
+
+    //Basic Data Types.
+    let x=5+5; //Integer addition.
+    let fx = 2.30; //Floating.
+    let boolean = true; //Boolean.
+    let bul: bool = false;
+    let ch = 'p'; //charcter.
+
+    //Compound Data Types.
+    //Tuple
+    let tup = (100,5.5,true);
+    let (x,y,z)=tup;
+    println!("Value of y in tuple is:{}",y);
+    let tupValue1 = tup.1; //Accessing through . operator.
+    println!("tupValue1 is:{}",tupValue1);
+    //Arrays.
+    let arr=[1,2,3,4,5];
+    let arr1 = [3;5];
+    //Accessing Array values.
+    let arrVal = arr[2];
+    let index =10;
+    //let arrval1 = arr[index];//Error thrown at run-time as out of bounds exception.
+
 }
