@@ -35,4 +35,11 @@ fn main() {
             }
         }
     }//End of Loop.
+
+    //Mutability and Shadowing.
+    let mut var = 10;
+    var =30;
+    println!("Old var is:{}",var);
+    let var = "Manju"; //This is called Shadowing.
+    println!("New var is:{}",var);
 }
