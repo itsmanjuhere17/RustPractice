@@ -1,7 +1,3 @@
-struct Dummy(i32);
-#[derive(Debug)]
-struct DebugDummy(i32);
-
 use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
@@ -38,5 +34,5 @@ fn main() {
                 break;
             }
         }
-    }
+    }//End of Loop.
 }
