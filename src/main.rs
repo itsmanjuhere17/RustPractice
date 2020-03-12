@@ -54,7 +54,7 @@ fn main() {
     println!("New var is:{}",var);
 
     //Basic Data Types.
-    let x=5+5; //Integer addition.
+    let x=5+5; //Integer addition
     let fx = 2.30; //Floating.
     let boolean = true; //Boolean.
     let bul: bool = false;
@@ -75,4 +75,25 @@ fn main() {
     let index =10;
     //let arrval1 = arr[index];//Error thrown at run-time as out of bounds exception.
 
+    //Functions:
+    dummy_function(10,20);
+    let retVal = dummy_function1();
+    println!("return value is:{}",retVal);
+    let retval1 = dummy_function2(5);
+    println!("Returned Value from dummy2 is:{}",retval1);
+}
+
+fn dummy_function2(x:i32)->i32
+{
+    //return x+5;  //1st flavor of returning.
+    x+5 //Second flavor of returning. NOTE:Here without semicolon meaning it is expression
+    //x+5; //Note:This print error as here semicolon mean it is statement and not expression. This is rust-way :(
+}
+fn dummy_function1()->i32
+{
+    return 10;
+}
+fn dummy_function(x:i32,y:i32)
+{
+    println!("The value of the param's x and y are:{} {}",x,y);
 }
