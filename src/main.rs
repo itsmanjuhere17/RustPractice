@@ -1,6 +1,8 @@
 use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
+//use std::intrinsics::prefetch_read_instruction;
+
 fn main() {
     println!("Hello, world!");
     println!("I'm a Rustacean!");
@@ -57,7 +59,7 @@ fn main() {
     let x=5+5; //Integer addition
     let fx = 2.30; //Floating.
     let boolean = true; //Boolean.
-    let bul: bool = false;
+    let bul= false;
     let ch = 'p'; //charcter.
 
     //Compound Data Types.
@@ -81,11 +83,86 @@ fn main() {
     println!("return value is:{}",retVal);
     let retval1 = dummy_function2(5);
     println!("Returned Value from dummy2 is:{}",retval1);
+
+    //Loops and Control Flows:
+    let dummyNumber =  10;
+    let number = if dummyNumber==10{ //Note you can return the value from if block.
+        5
+    }
+    else{
+        6
+    };
+    println!("Number from if condition is:{}",number);
+
+    //loop
+    let mut counter = 0;
+    let loopValue = loop{
+        counter=counter+1;
+        if counter==10{
+            break
+            counter*2
+        }
+    };
+    println!("Return value from loop is:{}",loopValue);
+
+    //while loop:
+    let arr=[1,2,3,4,5];
+    let mut index=0;
+    while index<5{
+        println!("Elements of array are:{}",arr[index]);
+        index=index+1;
+    }
+    //for loop.
+    for element in arr.iter(){
+        println!("Retrieving elements from array using for loop:{}",element);
+    }
+    //count down using for loop. A new approach.
+    for number in 1..4{ //Note:Here, 4 will not be considered in the range.
+        println!("for-loop:Printing range:{}",number);
+    }
+    for number in (1..5).rev(){
+        println!("for-loop:Printing range in reverse order:{}",number); //Printing the range reverse.
+    }
+    //Practice:Fibonacci
+    let mut fib_range = String::new();
+    io::stdin().read_line(&mut fib_range).expect("Failed to read line");
+    let fib_range:i32 = match fib_range.trim().parse(){
+        Ok(num)=>num,
+        Err(_)=>{
+            -1
+        }
+    };
+    if fib_range <=0{
+        println!("Enter a valid positive range");
+        return;
+    }
+    let result = fibonacci(fib_range);
+    println!("Fibonacci value of {}th range is:{}",fib_range,result);
+
+}
+fn fibonacci(fib_range:i32)->i32{
+    let mut x=0;
+    let mut y=1;
+    let mut z= -1;
+    if fib_range ==0{
+        z=0;
+    }
+    else if fib_range==1 {
+        z=1;
+    }
+    else {
+        for ele in 2..fib_range+1{
+            z=x+y;
+            x=y;
+            y=z;
+        }
+    }
+    return z;
 }
 
 fn dummy_function2(x:i32)->i32
 {
-    //return x+5;  //1st flavor of returning.
+    //return x+5;  //1st flavor of returning. If return is specified explicitly, we can use semicolon.
     x+5 //Second flavor of returning. NOTE:Here without semicolon meaning it is expression
     //x+5; //Note:This print error as here semicolon mean it is statement and not expression. This is rust-way :(
 }
