@@ -124,6 +124,7 @@ fn main() {
         println!("for-loop:Printing range in reverse order:{}",number); //Printing the range reverse.
     }
     //Practice:Fibonacci
+    println!("Enter the input fibonacci range");
     let mut fib_range = String::new();
     io::stdin().read_line(&mut fib_range).expect("Failed to read line");
     let mut fib_range:i32 = match fib_range.trim().parse(){
@@ -137,7 +138,7 @@ fn main() {
         return;
     }
     let result = fibonacci(fib_range);
-    fib_range = 15; //Can use, fib_range afterwards also. As i32 has copy trait. Check ownership concept in Rust.
+    //fib_range = 15; //Can use, fib_range afterwards also. As i32 has copy trait. Check ownership concept in Rust.
     println!("Fibonacci value of {}th range is:{}",fib_range,result);
     //Rust Ownership:
     let mut x=5; //Allocated on Stack.
@@ -154,10 +155,50 @@ fn main() {
     let str1=str.clone(); //If we want to have copy of the String, we need to clone it.
     println!("Using str value again after clone():{}",str);
     let mut stri = String::from("Good Morning");
-    let (stri1,n) = return_Mutliple(stri);
+    //We are passing stri by value.It means ownership is transferred to param of "return_Multiple" function.
+    let (stri1,n) = return_Mutliple(stri); //Using tuple to return multiple values.
     println!("Returned value of String and length of it is:{} {}",stri1,n);
 
+    //References.
+    let strRef = String::from("String Reference");
+    let mut strRef1 = String::from("Mutable String Reference");
+    let retLen = passByReference(&strRef);
+    println!("String value and it's returned length by reference is:{} {}",strRef,retLen);
+    let retLen = passByReferenceMutable(&mut strRef1);//Passing mutable reference as parameter.
+    println!("String value and it's returned length by mutable reference is:{} {}",strRef1,retLen);
+    dummy(&mut strRef1);//It works. Scope has changed from above.
+    //dummy1(&mut strRef1,&mut strRef1); NOTE: Throws error as you can't pass mutable reference to two entities at the same scope.
+    println!("String after dummy call is:{}",strRef1);
+    //let retStr = returnbyRef(); //Error: Cannot return dangling references.
+    
+} //End of main()
+
+
+fn returnbyRef()->&String
+{
+    let str=String::from("Returning from here");
+    return &str; //You should not return by reference to a local. Dangling reference. Compiler throws error.
+    //Solution is to return by value.Doing so, it is moved to destination.
 }
+fn dummy(s:&mut String){
+    s.push_str(" Gully Boys");
+}
+fn dummy1(s:&mut String,s1:&mut String)
+{
+    s.push_str(" Gully Boys");
+}
+fn passByReferenceMutable(s:&mut String)->usize //Passing by reference.
+{
+    s.push_str(" Rustacean");
+    s.len()
+}
+
+fn passByReference(s:&String)->usize //Passing by reference.
+{
+    //s.push_str("Rustacean"); You can't modify the reference if it is declared as immutable.
+    s.len()
+}
+
 
 fn return_Mutliple(s:String)->(String,usize)
 {
