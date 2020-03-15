@@ -126,7 +126,7 @@ fn main() {
     //Practice:Fibonacci
     let mut fib_range = String::new();
     io::stdin().read_line(&mut fib_range).expect("Failed to read line");
-    let fib_range:i32 = match fib_range.trim().parse(){
+    let mut fib_range:i32 = match fib_range.trim().parse(){
         Ok(num)=>num,
         Err(_)=>{
             -1
@@ -137,9 +137,34 @@ fn main() {
         return;
     }
     let result = fibonacci(fib_range);
+    fib_range = 15; //Can use, fib_range afterwards also. As i32 has copy trait. Check ownership concept in Rust.
     println!("Fibonacci value of {}th range is:{}",fib_range,result);
+    //Rust Ownership:
+    let mut x=5; //Allocated on Stack.
+    let y=x; //Allocated on Stack. Hence, no ownership problem.
+    x=10; //x is mutable and can be changed.
+    println!("X value is:{} and Y value is:{}",x,y);
+    let mut s=String::from("Hello");//It allocates string on Heap.
+    //Here, variable s is on Stack and points the data to Heap.
+    let mut s1 = s;//By doing this, 's' ownership is transferred to s1. Similar to move concept in C++.
+    //println!("Value of s is:{}",s); Error. Can't use s after move.
+    s=String::from("World"); //But, we can re-initialise s with other String type.
+    println!("Value of s is:{}",s);
+    let str=String::from("Manjunath");
+    let str1=str.clone(); //If we want to have copy of the String, we need to clone it.
+    println!("Using str value again after clone():{}",str);
+    let mut stri = String::from("Good Morning");
+    let (stri1,n) = return_Mutliple(stri);
+    println!("Returned value of String and length of it is:{} {}",stri1,n);
 
 }
+
+fn return_Mutliple(s:String)->(String,usize)
+{
+    let len = s.len();
+    return (s,len);
+}
+
 fn fibonacci(fib_range:i32)->i32{
     let mut x=0;
     let mut y=1;
@@ -151,7 +176,7 @@ fn fibonacci(fib_range:i32)->i32{
         z=1;
     }
     else {
-        for ele in 2..fib_range+1{
+        for ele in 2..fib_range+1{ //Here, fibrange is not included in the loop.So, traverse to fibrange+1
             z=x+y;
             x=y;
             y=z;
