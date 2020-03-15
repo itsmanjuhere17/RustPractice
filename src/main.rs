@@ -170,16 +170,16 @@ fn main() {
     //dummy1(&mut strRef1,&mut strRef1); NOTE: Throws error as you can't pass mutable reference to two entities at the same scope.
     println!("String after dummy call is:{}",strRef1);
     //let retStr = returnbyRef(); //Error: Cannot return dangling references.
-    
+
 } //End of main()
 
 
-fn returnbyRef()->&String
-{
-    let str=String::from("Returning from here");
-    return &str; //You should not return by reference to a local. Dangling reference. Compiler throws error.
-    //Solution is to return by value.Doing so, it is moved to destination.
-}
+// fn returnbyRef()->&String
+// {
+//     let str=String::from("Returning from here");
+//     return &str; //You should not return by reference to a local. Dangling reference. Compiler throws error.
+//     //Solution is to return by value.Doing so, it is moved to destination.
+// }
 fn dummy(s:&mut String){
     s.push_str(" Gully Boys");
 }
