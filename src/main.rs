@@ -3,6 +3,32 @@ use rand::Rng;
 use std::cmp::Ordering;
 //use std::intrinsics::prefetch_read_instruction;
 
+struct User{
+    name:String,
+    age:u32,
+    email:String,
+    address:String
+}
+
+#[derive(Debug)]
+struct Rect{
+    length:u32,
+    breadth:u32
+}
+
+impl Rect{
+    fn rectArea(&self)->u32{
+        return self.length * self.breadth;
+    }
+    fn getSquare(dim:u32)->Rect{
+        let rect=Rect{
+            length:dim,
+            breadth:dim
+        };
+        rect
+    }
+}
+
 fn main() {
     println!("Hello, world!");
     println!("I'm a Rustacean!");
@@ -184,9 +210,56 @@ fn main() {
         println!("Array Slice elements are:{}",ele);
     }
 
+    //Structures:
+    //Instance of struct
+    let instUser = User{
+        name:String::from("Manjunath"),
+        age:29,
+        email:String::from("manjunath.malepati17@yahoo.com"),
+        address:String::from("Kohmankaari 9A")
+    };
+    //Note: In structure, you cannot have individual fields as mutable or immutable. Either entire struct is mutable or immutable.
+    //instUser.email="manjumalepati17@gmail.com";//Error as instUser is immutable.
+    println!("User name is:{}",instUser.name);
+    //Creating a new User instance from the existing user instance but with limited data using "Struct Update" syntax.
+    let instUser1=User{
+      name:String::from("Prathyusha"),
+      age:28,
+      ..instUser
+    };
+    //println!("First User address is:{}",instUser.address);//Note: Error. Here, Struct is moved already.
+    println!("Second User address is:{}",instUser1.address);
+    struct Dummy{
+        name:String,
+        pincode:u32
+    };
+    //Tuple structs.
+    struct Color(i32,i32,i32);//No Named fields.Only types are present in tuple structs.
+    struct Point(i32,i32,i32);
+    let color=Color(0,1,2);
+    let origin=Point(0,0,1);
+    //Note:Here both are different types.
+    //Rectangle Program
+    let dimensions=Rect{
+        length:10,
+        breadth:5
+    };
+    let result=area(&dimensions); //pass by value.
+    println!("Area of rectangle is:{}",result);
+   //println!("Area of rectangle is:{}",dimensions.length); //Error as struct is moved already.
+    println!("Rectangle dimensions are:{:#?}",dimensions); //Note:This works only if #debug is added at struct declaration.
+
+    println!("Area of rectangle defined inside 'Rect struct' is:{}",dimensions.rectArea());//Method defined in struct.
+    let square=Rect::getSquare(25);
+    println!("Square dimensions are:{:#?}",square);
+    println!("Area of square is:{}",square.rectArea());
+
 } //End of main()
 
-
+fn area(rect:&Rect)->u32
+{
+    return rect.length * rect.breadth;
+}
 // fn returnbyRef()->&String
 // {
 //     let str=String::from("Returning from here");
