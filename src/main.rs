@@ -171,6 +171,19 @@ fn main() {
     println!("String after dummy call is:{}",strRef1);
     //let retStr = returnbyRef(); //Error: Cannot return dangling references.
 
+    //Slice Type.
+    let  s="Manjunath"; //By default literals are slices.
+    //s="Manjugadu";
+    println!("String literal is:{}",s);
+    let sliceStr = String::from("Slice String");
+    let slice = &sliceStr[0..5]; //Here, type is "str"
+
+    let arr=[1,2,3,4,5];
+    let arrSlice = &arr[2..4];
+    for ele in arrSlice.iter(){
+        println!("Array Slice elements are:{}",ele);
+    }
+
 } //End of main()
 
 
