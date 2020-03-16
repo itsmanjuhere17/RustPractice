@@ -244,7 +244,7 @@ fn main() {
         length:10,
         breadth:5
     };
-    let result=area(&dimensions); //pass by value.
+    let result=area(&dimensions); //pass by reference.
     println!("Area of rectangle is:{}",result);
    //println!("Area of rectangle is:{}",dimensions.length); //Error as struct is moved already.
     println!("Rectangle dimensions are:{:#?}",dimensions); //Note:This works only if #debug is added at struct declaration.
@@ -254,7 +254,61 @@ fn main() {
     println!("Square dimensions are:{:#?}",square);
     println!("Area of square is:{}",square.rectArea());
 
+    //Enumerations.
+    #[derive(Debug)]
+    enum IpAddType{
+        ipV4(String),
+        ipV6(String)
+    };
+    let ip4 = IpAddType::ipV4(String::from("127.0.0.1"));
+    println!("Ip Add type is:{:#?}",ip4);
+
+    #[derive(Debug)]
+    enum IpAddr{
+        ipv4(u8,u8,u8,u8),
+        ipv6(String)
+    };
+    let ipv4 = IpAddr::ipv4(127,0,0,1);
+    println!("Ip Add type is:{:#?}",ipv4);
+    //We can declare, multiple types inside enum.
+    enum Message{
+        Quit,
+        Move(u8,u8),
+        Write(String),
+        ipAddress(IpAddr) //Defining an enum Inside enum.
+    };
+    //Option<T>
+    let some_int=Some(5);
+    let some_str=Some("Manjunath");
+    let nothing:Option<u32>=None;
+
+    //Match expression with enums.
+    let someVal:Option<u32>=Some(1); //If Some value is passed,we return somevalue else, None if None is passed.
+    let result=increment(someVal);
+    println!("Result is:{:?}",result);
+
+    //if let syntax.
+
 } //End of main()
+
+fn increment(param:Option<u32>)->Option<u32>{
+    // match param{
+    //     Some(i)=>{
+    //         //println!("Something is:{:?}",Some(i+1));
+    //         Some(i+1)
+    //     },
+    //     None=>None,//Note:match is exhaustive search pattern. if you don't explicitly specify all the matching patterns, compiler will throw an error unless you specify _plcae holder like below.
+    //     _=>None //Like a default specifier in C++ in switch.
+    // }
+
+    //using
+    if let Some(i)=param{
+        Some(i+1)
+    }
+    else {
+        None
+    }
+}
 
 fn area(rect:&Rect)->u32
 {
