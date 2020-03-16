@@ -11,6 +11,13 @@ struct User{
 }
 
 #[derive(Debug)]
+enum Fruit{
+    Mango,
+    Orange,
+    Apple
+}
+
+#[derive(Debug)]
 struct Rect{
     length:u32,
     breadth:u32
@@ -287,10 +294,27 @@ fn main() {
     let result=increment(someVal);
     println!("Result is:{:?}",result);
 
-    //if let syntax.
+    let y=returnFruitSeason(Fruit::Mango);
+    println!("Season of the passed fruit {:#?} is {}",Fruit::Mango,y);
 
 } //End of main()
 
+fn returnFruitSeason(fruit:Fruit)->String
+{
+    //Using match expression.
+    // match fruit{
+    //     Fruit::Mango=>String::from("Summer"),
+    //     Fruit::Orange=>String::from("All Seasons"),
+    //     Fruit::Apple=>String::from("Winter")
+    // }
+    // Or
+    if let Fruit::Mango = fruit{
+        String::from("Summer")
+    }
+    else {
+        String::from("All Seasons")
+    }
+}
 fn increment(param:Option<u32>)->Option<u32>{
     // match param{
     //     Some(i)=>{
