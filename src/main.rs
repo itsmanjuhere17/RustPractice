@@ -1,6 +1,7 @@
-use std::io;
 use rand::Rng;
-use std::cmp::Ordering;
+use std::{io,cmp::Ordering}; //Nested Paths. Instead of defining two use statements,we can combine into one.
+use std::collections::*; //Global operator. Need to be careful when declaring glob operator.
+
 //use std::intrinsics::prefetch_read_instruction;
 
 struct User{

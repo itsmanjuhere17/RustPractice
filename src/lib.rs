@@ -25,11 +25,18 @@ mod front_house {
             }
         }
     }
-    pub enum Appetizer{
+    pub enum Appetizer{ //By default,enums are public.
         Soup,
         Salad
     }
 }
+
+use front_house::hosting;
+use front_house::Breakfast; //Using relative path.
+//or
+use crate::front_house::Breakfast as strBreakfast; //Specifying relative path
+
+//Using use keyword to define scopes.
 fn eat_at_restaurant()
 {
     //Absolute path.
@@ -38,6 +45,8 @@ fn eat_at_restaurant()
     front_house::hosting::do_seating();//Note: Same as above, if privately defined error is thrown.
 
     let mut Bfast = front_house::Breakfast::summer("Idly");
+    //or
+    let mut Bfast1 = Breakfast::summer("dosa");
     Bfast.meal = String::from("Dosa");
     println!("Breakfast ordered is:{:#?}",Bfast);
 
