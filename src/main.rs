@@ -298,7 +298,44 @@ fn main() {
     let y=returnFruitSeason(Fruit::Mango);
     println!("Season of the passed fruit {:#?} is {}",Fruit::Mango,y);
 
+    //Selection Sort Practice.
+    let mut vector = vec![2,1,5,3,4];
+    //selection_sort(&mut vector);
+    // for (vecIndex,vecElement) in vector.iter_mut().enumerate(){ //Note: Using enumerate we cannot modify the vector contents.
+    //     vector[vecIndex]=vecIndex *10;
+    // }
+    println!("Elements of vector after Selection sort are:");
+    for ele in vector.iter(){
+        println!("{}",ele);
+    }
 } //End of main()
+
+fn selection_sort(vector:&mut Vec<i32>){
+    let mut sortedIndex= 0;
+    let mut key = vector[0];
+    println!("Vector size is:{}",vector.len());
+    for index in 1..vector.len(){
+        println!("Index is:{}",index);
+        sortedIndex = index-1;
+        key=vector[index];
+        println!("Key is{}",key);
+        while sortedIndex >= 0{
+            if  key < vector[sortedIndex]{
+                vector[sortedIndex+1]=vector[sortedIndex];
+            }
+            else {
+                vector[sortedIndex + 1] = key;
+                println!("Break is about to encounter{} {} {} {}",index,sortedIndex,vector[index],vector[sortedIndex]);
+                break;
+            }
+            println!("Sorted Index is:{}",sortedIndex);
+            sortedIndex = sortedIndex-1;
+        }
+    }
+    if sortedIndex < 0{
+        vector[sortedIndex+1]=key;
+    }
+}
 
 fn returnFruitSeason(fruit:Fruit)->String
 {
