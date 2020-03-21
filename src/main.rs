@@ -308,13 +308,57 @@ fn main() {
     for ele in vector.iter(){
         println!("{}",ele);
     }
+    let mut index:i32 = 0;
+    index = index -1;
+    println!("Index value is:{}",index);
+    //Strings.
+    let mut striing = String::new(); //Allocated on Heap.
+    let strLit = "Manjunath";
+    let striing = strLit.to_string();
+    println!("To String is:{}",striing);
+    let mut striing = "Malepati".to_string(); //Directly converting string slice to String type.
+    striing.push_str("Manjunath"); //Concatenating using push_str
+    striing.push('M'); //With Push you can only push character.
+    let mut strin = String::from("Porumamilla");
+    let striin =  String::from("Malepati");
+    strin.push_str(&striin);
+    println!("To String is:{} {}",striing,strin);
+
+    let s1 = String::from("tic");
+    let s2 = String::from("tac");
+    let s3 = String::from("toe");
+
+    let sres = s1+&s2; //Here, we need to specify & in second string in +. + uses fn add signature here. s1 ownership is transferred here.
+    println!("String result of s1,s2 and s3 is:{}",sres);
+    //Alternative is to use format! macro.
+    let formatStr = format!("{} {}",s2,s3);
+    println!("String concatenation using format macro is:{}",formatStr);
+    //let ch = formatStr[0]; //Indexing in String is not possible in Rust.
+
+    //Accessing Individual chars from String.
+    for c in "नमस्ते".chars() { //print each character value.
+        println!("{}", c);
+    }
+    for b in "नमस्ते".bytes() { //print each byte value.
+        println!("{}", b);
+    }
+    for ch in formatStr.chars(){
+        println!("{}",ch);
+    }
+    for by in formatStr.bytes(){
+        println!("{}",by);
+    }
+
+
 } //End of main()
 
+
+/*********************** MAIN ENDED ABOVE *************************************************/
 fn selection_sort(vector:&mut Vec<i32>){
     let mut sortedIndex= 0;
     let mut key = vector[0];
     println!("Vector size is:{}",vector.len());
-    for index in 1..vector.len(){
+    for index in 1..5{
         println!("Index is:{}",index);
         sortedIndex = index-1;
         key=vector[index];
@@ -325,7 +369,6 @@ fn selection_sort(vector:&mut Vec<i32>){
             }
             else {
                 vector[sortedIndex + 1] = key;
-                println!("Break is about to encounter{} {} {} {}",index,sortedIndex,vector[index],vector[sortedIndex]);
                 break;
             }
             println!("Sorted Index is:{}",sortedIndex);
