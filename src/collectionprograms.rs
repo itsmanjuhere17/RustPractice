@@ -47,18 +47,18 @@ pub fn stringtopglatin()
         let mut pigLatWord = String::new();
         let ch = word.chars().next().unwrap();
         if ch == 'a' || ch== 'e' || ch =='i' || ch =='o' || ch =='u'{
-             pigLatWord = format!("{}{}",word.to_string(),"-hay ".to_string());
+             pigLatWord = format!("{}{}",word,"-hay ");
         }
         else {
-
-            let mut word = String::from(word);
+            let mut word = String::from(word); //Here,word is a &str.not String type.
             word.remove(0);
             //assert_eq!(word.to_string().remove(0),'M');
             word.push('-');
             word.push(ch);
             pigLatWord = format!("{}{}",word.to_string(),"ay ".to_string());
         }
-        finalStr = finalStr + &pigLatWord;
+        //finalStr = finalStr + &pigLatWord; //Both ways can eb used.
+        finalStr = format!("{}{}",finalStr,pigLatWord);
     }
     println!("Final LatinPig String is:{}",finalStr);
 }
