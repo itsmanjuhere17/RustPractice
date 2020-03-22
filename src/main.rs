@@ -1,8 +1,10 @@
 use rand::Rng;
 use std::{io,cmp::Ordering}; //Nested Paths. Instead of defining two use statements,we can combine into one.
 use std::collections::*; //Global operator. Need to be careful when declaring glob operator. what if one of its modules overlap with the defined one here in the file.
-
 //use std::intrinsics::prefetch_read_instruction;
+pub mod collectionprograms;
+
+use crate::collectionprograms::vectorCollectionProgram;
 
 struct User{
     name:String,
@@ -367,7 +369,7 @@ fn main() {
 
     //Extracting Hash Map using tuple and for loop.
     for (team,score) in &gameScores{
-        println!("{} {}",team,score);
+        println!("{} {}",*team,*score);
     }
     //Alternative way to create HashMap Using collect() method.
     let teamNames = vec!["TeamA".to_string(),"TeamB".to_string()];
@@ -400,8 +402,8 @@ fn main() {
         println!("{} {}",word,counter);
     }
 
-
-
+    //Practicing some programs.
+    collectionprograms::vectorCollectionProgram();
 
 
 
