@@ -1,8 +1,10 @@
 use rand::Rng;
-use std::{io,cmp::Ordering}; //Nested Paths. Instead of defining two use statements,we can combine into one.
+use std::{io,cmp::Ordering,io::ErrorKind}; //Nested Paths. Instead of defining two use statements,we can combine into one.
 use std::collections::*; //Global operator. Need to be careful when declaring glob operator. what if one of its modules overlap with the defined one here in the file.
 //use std::intrinsics::prefetch_read_instruction;
 pub mod collectionprograms;
+use std::fs::File;
+use std::io::Read;
 
 use crate::collectionprograms::vectorCollectionProgram;
 
@@ -403,17 +405,57 @@ fn main() {
     }
 
     //Practicing some programs.
-    collectionprograms::vectorCollectionProgram();
+    vectorCollectionProgram(); //You can call either way.Preferable is below way.
     collectionprograms::stringtopglatin();
 
+    //Error Handling.
+    //panic!("Panicking here");
+    /* let file = match file::open("../../cargo.toml"){
+        ok(file)=>file,
+        err(error)=>match error.kind(){
+            errorkind::notfound=>match file::create("hello.txt"){
+                ok(fi)=>fi,
+                err(error)=>panic!("cannot create a file{}",error)
+            }
+            other_error=>panic!("some other error:{:?}",other_error)
+        }
+    };
+    */
 
+    //Alternative to above instead of uasing many match expressions.Using closures.
+    //closures?? Chapter:13
+    let file = File::open("sample.txt").unwrap_or_else(|error|{
+        if error.kind()==ErrorKind::NotFound{
+            File::create("sample.txt").unwrap_or_else(|error|{
+                panic!("Error creating file{:#?}",error)
+            })
+        }
+        else{
+            panic!("Error opening file{:#?}",error)
+        }
+    });
+    //using unwrap that calls default panic macro.
+    //let fhand = File::open("dingdong.txt").unwrap();//This prints default panic message.
+    //let fhand = File::open("dingdong.txt").expect("No such file or directory exists");//it prints user given message instead of default panic one. Suggestion is to use this.
 
-
+    //Propogating errors to calling functions.
+    let result = read_from_file();
+    match result {
+        Ok(str)=>println!("UserName from file is:{}",str),
+        Err(error)=>panic!("Cannot read userName from file{:#?}",error)
+    }
 } //End of main()
 
 
 /*********************** MAIN ENDED ABOVE *************************************************/
 
+fn read_from_file()->Result<String,io::Error>{
+    let mut f= File::open("hello.txt")?;
+    let mut str=String::new();
+    f.read_to_string(&mut str)?;
+    println!("String inside file is:{}",str);
+    Ok(str)
+}
 fn selection_sort(vector:&mut Vec<i32>){
     let mut sortedIndex= 0;
     let mut key = vector[0];
