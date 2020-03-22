@@ -38,3 +38,27 @@ pub fn vectorCollectionProgram()
     }
     println!("Mode value of the integers is:{} with mode count as: {}",mode,maxValue);
 }
+
+pub fn stringtopglatin()
+{
+    let mut inputText = String::from("Manju is a good boy");
+    let mut finalStr = String::new();
+    for mut word in &mut inputText.split_whitespace(){
+        let mut pigLatWord = String::new();
+        let ch = word.chars().next().unwrap();
+        if ch == 'a' || ch== 'e' || ch =='i' || ch =='o' || ch =='u'{
+             pigLatWord = format!("{}{}",word.to_string(),"-hay ".to_string());
+        }
+        else {
+
+            let mut word = String::from(word);
+            word.remove(0);
+            //assert_eq!(word.to_string().remove(0),'M');
+            word.push('-');
+            word.push(ch);
+            pigLatWord = format!("{}{}",word.to_string(),"ay ".to_string());
+        }
+        finalStr = finalStr + &pigLatWord;
+    }
+    println!("Final LatinPig String is:{}",finalStr);
+}

@@ -404,6 +404,7 @@ fn main() {
 
     //Practicing some programs.
     collectionprograms::vectorCollectionProgram();
+    collectionprograms::stringtopglatin();
 
 
 
