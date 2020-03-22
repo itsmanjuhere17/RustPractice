@@ -1,6 +1,6 @@
 use rand::Rng;
 use std::{io,cmp::Ordering}; //Nested Paths. Instead of defining two use statements,we can combine into one.
-use std::collections::*; //Global operator. Need to be careful when declaring glob operator.
+use std::collections::*; //Global operator. Need to be careful when declaring glob operator. what if one of its modules overlap with the defined one here in the file.
 
 //use std::intrinsics::prefetch_read_instruction;
 
@@ -348,12 +348,69 @@ fn main() {
     for by in formatStr.bytes(){
         println!("{}",by);
     }
+    let length = "नमस्ते".len();
+    println!("Length of string in bytes is:{}",length);//Length always gives size of string in bytes.
+
+    //Hash Maps. Hash table with key and value mapping.
+    let mut gameScores = HashMap::new();
+    gameScores.insert(String::from("TeamA"),20);
+    gameScores.insert(String::from("TeamB"),30);
+    gameScores.insert(String::from("TeamB"),50);//Rust overrides the key value if it is already present. Check below for loops output.
+
+    //Using 'entry' method to check if key is present already and if yes,it just returns the mutable reference.Else,it inserts new and returns mutable reference.
+    gameScores.entry(String::from("TeamB".to_string())).or_insert(100);//Does not overwrite the key here.
+    gameScores.entry(String::from("TeamC".to_string())).or_insert(100);
+
+    for ele in gameScores.iter(){
+        println!("Ele is:{:#?}",ele);
+    }
+
+    //Extracting Hash Map using tuple and for loop.
+    for (team,score) in &gameScores{
+        println!("{} {}",team,score);
+    }
+    //Alternative way to create HashMap Using collect() method.
+    let teamNames = vec!["TeamA".to_string(),"TeamB".to_string()];
+    let scores = vec![50,60];
+    let hashTeamScores:HashMap<_,_> = teamNames.iter().zip(scores.iter()).collect(); //Type needs to explicitly mentioned here as collect() can turn into any type.
+    //Retrieving value from Key.
+    let resultScore =  gameScores.get(&"TeamB".to_string()); //It is giving latest score.
+    if let Some(value) = resultScore{
+        println!("TeamA score found {}",value);
+    }
+    else {
+        println!("No TeamA score found");
+    }
+    //2nd Approach.
+    let score = match gameScores.get(&"TeamC".to_string()){
+        Some(value)=>value,
+        None=>&-1
+    };
+    println!("Score of TeamA is:{}",score);
+
+    //Updating already Hash Map key with a different value.
+    let textStr = "Hello world world is not saying Hello as world is in danger";
+    let mut wordCounthash:HashMap<_,_> = HashMap::new();
+    for word in textStr.split_whitespace(){
+        let mut count = wordCounthash.entry(word).or_insert(0);
+        *count+=1;
+    }
+    println!("Occurrences of word are:");
+    for (word,counter) in &wordCounthash{
+        println!("{} {}",word,counter);
+    }
+
+
+
+
+
 
 
 } //End of main()
 
 
 /*********************** MAIN ENDED ABOVE *************************************************/
+
 fn selection_sort(vector:&mut Vec<i32>){
     let mut sortedIndex= 0;
     let mut key = vector[0];
