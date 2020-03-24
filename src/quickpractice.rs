@@ -7,4 +7,15 @@ pub fn quickVerifications(){
         println!("{}",ele);
     }
 
+    let mut x=10;
+    let mut y=&mut x;
+    *y=100;
+    //println!("x is {} , y is {}",x,y); Note: I need to check this.
+    //let mut z=&mut y;
+
+    let v = vec![100, 32, 57];
+    for i in &v {
+        println!("{}", i);
+    }
+    println!("#### EXITING quickVerification function ####");
 }

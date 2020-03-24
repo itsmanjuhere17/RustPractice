@@ -38,6 +38,8 @@ pub fn vectorCollectionProgram()
         }
     }
     println!("Mode value of the integers is:{} with mode count as: {}",mode,maxValue);
+
+    println!("#### EXITING vectorCollectionProgram function ####");
 }
 
 pub fn stringtopglatin()

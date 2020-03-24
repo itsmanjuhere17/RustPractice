@@ -4,6 +4,7 @@ use std::collections::*; //Global operator. Need to be careful when declaring gl
 //use std::intrinsics::prefetch_read_instruction;
 pub mod collectionprograms;
 mod quickpractice;
+mod generictypes;
 use std::fs::File;
 use std::io::Read;
 
@@ -446,6 +447,7 @@ fn main() {
         Err(error)=>panic!("Cannot read userName from file{:#?}",error)
     }
     quickpractice::quickVerifications();
+    generictypes::generictypes();
 
 } //End of main()
 
