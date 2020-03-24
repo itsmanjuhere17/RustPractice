@@ -1,6 +1,7 @@
 use std::collections::*;
 pub fn vectorCollectionProgram()
 {
+    println!("#### INSIDE vectorCollectionProgram function ####");
     let mut vecInt = Vec::new();
     vecInt.push(10);
     vecInt.push(20);

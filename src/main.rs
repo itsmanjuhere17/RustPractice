@@ -3,6 +3,7 @@ use std::{io,cmp::Ordering,io::ErrorKind}; //Nested Paths. Instead of defining t
 use std::collections::*; //Global operator. Need to be careful when declaring glob operator. what if one of its modules overlap with the defined one here in the file.
 //use std::intrinsics::prefetch_read_instruction;
 pub mod collectionprograms;
+mod quickpractice;
 use std::fs::File;
 use std::io::Read;
 
@@ -444,6 +445,8 @@ fn main() {
         Ok(str)=>println!("UserName from file is:{}",str),
         Err(error)=>panic!("Cannot read userName from file{:#?}",error)
     }
+    quickpractice::quickVerifications();
+
 } //End of main()
 
 
