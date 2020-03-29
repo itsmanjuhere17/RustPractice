@@ -17,5 +17,7 @@ pub fn quickVerifications(){
     for i in &v {
         println!("{}", i);
     }
+
+    println!("{}",format!("{:<11}","Manjunath"));
     println!("#### EXITING quickVerification function ####");
 }
