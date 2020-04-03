@@ -90,9 +90,9 @@ fn main() {
 
     //Mutability and Shadowing.
     let mut var = 10;
-    var =30;
+    var =30; //Here, var is mutable.
     println!("Old var is:{}",var);
-    let var = "Manju"; //This is called Shadowing.
+    let var = "Manju"; //This is called Shadowing. It can be nay type later.
     println!("New var is:{}",var);
 
     //Basic Data Types.
@@ -111,11 +111,22 @@ fn main() {
     println!("tupValue1 is:{}",tupValue1);
     //Arrays.
     let arr=[1,2,3,4,5];
-    let arr1 = [3;5];
+    let arr1 = [3;5]; //Declaring array of size 5 with initial value as 3/
     //Accessing Array values.
     let arrVal = arr[2];
     let index =10;
     //let arrval1 = arr[index];//Error thrown at run-time as out of bounds exception.
+
+    let arrVal = arr.get(4);
+    let arrValue;
+    if let Some(val)=arrVal{
+        arrValue = val;
+        println!("Array value is:{}",arrValue);
+    }
+    else {
+        println!("Array value not found");
+    }
+
 
     //Functions:
     dummy_function(10,20);
@@ -140,7 +151,7 @@ fn main() {
         counter=counter+1;
         if counter==10{
             break
-            counter*2
+            counter*2 //It will execute the next statement after break as well.
         }
     };
     println!("Return value from loop is:{}",loopValue);
@@ -200,9 +211,9 @@ fn main() {
     println!("Returned value of String and length of it is:{} {}",stri1,n);
 
     //References.
-    let strRef = String::from("String Reference");
+    let mut strRef = String::from("String Reference");
     let mut strRef1 = String::from("Mutable String Reference");
-    let retLen = passByReference(&strRef);
+    let retLen = passByReference(&strRef); //Passing immutable reference.
     println!("String value and it's returned length by reference is:{} {}",strRef,retLen);
     let retLen = passByReferenceMutable(&mut strRef1);//Passing mutable reference as parameter.
     println!("String value and it's returned length by mutable reference is:{} {}",strRef1,retLen);
@@ -215,11 +226,11 @@ fn main() {
     let  s="Manjunath"; //By default literals are slices.
     //s="Manjugadu";
     println!("String literal is:{}",s);
-    let sliceStr = String::from("Slice String");
+    let sliceStr = String::from("Slice String");//Creating String type from string slice.
     let slice = &sliceStr[0..5]; //Here, type is "str"
 
-    let arr=[1,2,3,4,5];
-    let arrSlice = &arr[2..4];
+    let arr=[1,2,3,4,5]; //Static Array.
+    let arrSlice = &arr[2..4]; //Starting from index 2 to 3.Not including 4
     for ele in arrSlice.iter(){
         println!("Array Slice elements are:{}",ele);
     }
@@ -239,6 +250,7 @@ fn main() {
     let instUser1=User{
       name:String::from("Prathyusha"),
       age:28,
+      email:String::from("prathyusha.talluri10@gmail.com"),
       ..instUser
     };
     //println!("First User address is:{}",instUser.address);//Note: Error. Here, Struct is moved already.
@@ -260,7 +272,7 @@ fn main() {
     };
     let result=area(&dimensions); //pass by reference.
     println!("Area of rectangle is:{}",result);
-   //println!("Area of rectangle is:{}",dimensions.length); //Error as struct is moved already.
+    println!("Area of rectangle is:{}",dimensions.length); //Error if struct is moved as value.
     println!("Rectangle dimensions are:{:#?}",dimensions); //Note:This works only if #debug is added at struct declaration.
 
     println!("Area of rectangle defined inside 'Rect struct' is:{}",dimensions.rectArea());//Method defined in struct.
@@ -327,7 +339,7 @@ fn main() {
     striing.push('M'); //With Push you can only push character.
     let mut strin = String::from("Porumamilla");
     let striin =  String::from("Malepati");
-    strin.push_str(&striin);
+    strin.push_str(&striin); //It is called deref coercion. Here, &String type is converted to &str type.
     println!("To String is:{} {}",striing,strin);
 
     let s1 = String::from("tic");
@@ -390,7 +402,8 @@ fn main() {
     //2nd Approach.
     let score = match gameScores.get(&"TeamC".to_string()){
         Some(value)=>value,
-        None=>&-1
+        _=> &-1 //We can specify _ as well here . Which is similar to default case in switch in C++.
+        //None=>&-1
     };
     println!("Score of TeamA is:{}",score);
 
@@ -402,7 +415,8 @@ fn main() {
         *count+=1;
     }
     println!("Occurrences of word are:");
-    for (word,counter) in &wordCounthash{
+    for (word,counter) in wordCounthash{
+        //wordCounthash.get(&word); //Cannot use hashmap again here.It is moved already.
         println!("{} {}",word,counter);
     }
 
@@ -444,7 +458,16 @@ fn main() {
     let result = read_from_file();
     match result {
         Ok(str)=>println!("UserName from file is:{}",str),
-        Err(error)=>panic!("Cannot read userName from file{:#?}",error)
+        Err(error)=>if let ErrorKind::NotFound = error.kind(){
+            let mut file = File::create("hello1.txt").expect("Creation of a file failed");
+            let mut file = File::open("hello1.txt").expect("Opening of file failed");
+            let mut fileContent = String::new();
+            file.read_to_string(&mut fileContent);
+            println!("File Content is:{}",fileContent);
+        }
+        else{
+            panic!("Some other weird error:{:#?}",error);
+        }
     }
     quickpractice::quickVerifications();
     generictypes::generictypes();
@@ -455,7 +478,7 @@ fn main() {
 /*********************** MAIN ENDED ABOVE *************************************************/
 
 fn read_from_file()->Result<String,io::Error>{
-    let mut f= File::open("hello.txt")?;
+    let mut f= File::open("hello1.txt")?;
     let mut str=String::new();
     f.read_to_string(&mut str)?;
     println!("String inside file is:{}",str);

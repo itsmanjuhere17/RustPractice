@@ -9,8 +9,9 @@ pub fn vectorCollectionProgram()
     vecInt.push(5);
     vecInt.push(15);
     let mut SumVect=0;
-    for ele in &vecInt{
-        SumVect+=ele;
+    for mut ele in &mut vecInt{ //Passing mutable reference of vector.
+        //*ele = 5;
+        SumVect+=*ele;
     }
     let average = SumVect/vecInt.len();
     println!("Average value of vector is:{}",average);
@@ -32,7 +33,7 @@ pub fn vectorCollectionProgram()
     let mut maxValue=0;
     let mut mode =0;
     for (key,value) in &hashMapInt{ //Immutable reference.
-        if value>&maxValue{
+        if *value>maxValue{
             maxValue = *value;
             mode=**key;
         }
