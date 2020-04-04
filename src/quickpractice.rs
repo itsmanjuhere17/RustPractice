@@ -1,3 +1,5 @@
+use std::process;
+
 pub fn quickVerifications(){
     println!("#### INSIDE quickVerification function ####");
     let mut v = [5, 4, 1, 3, 2];
@@ -21,6 +23,8 @@ pub fn quickVerifications(){
 
     println!("{}",format!("{:<18}{}","Manjunath","is a good boy"));//Including the string Manjunath it takes 18 spaces and then print next string.
 
+    let ret = process::Command::new("sudo").arg("vi /etc/logrotate.d/dummy").output();
+    println!("{:#?}",ret);
     println!("#### EXITING quickVerification function ####");
 }
 

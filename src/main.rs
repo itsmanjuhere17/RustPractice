@@ -1,12 +1,20 @@
 use rand::Rng;
 use std::{io,cmp::Ordering,io::ErrorKind}; //Nested Paths. Instead of defining two use statements,we can combine into one.
 use std::collections::*; //Global operator. Need to be careful when declaring glob operator. what if one of its modules overlap with the defined one here in the file.
+use std::path::Path;
 //use std::intrinsics::prefetch_read_instruction;
 pub mod collectionprograms;
 mod quickpractice;
 mod generictypes;
+mod tests;
+//use quickpractice;
 use std::fs::File;
 use std::io::Read;
+use std::io::Write;
+use std::fs::OpenOptions;
+
+
+extern crate RustPractice;
 
 use crate::collectionprograms::vectorCollectionProgram;
 
@@ -44,6 +52,7 @@ impl Rect{
 }
 
 fn main() {
+    RustPractice::front_house::hosting::do_seating(); //Library crate. Calling do_seating inside lib.rs file
     println!("Hello, world!");
     println!("I'm a Rustacean!");
     //println!("Printable is: {:?}",DebugDummy(10));
@@ -455,12 +464,14 @@ fn main() {
     //let fhand = File::open("dingdong.txt").expect("No such file or directory exists");//it prints user given message instead of default panic one. Suggestion is to use this.
 
     //Propogating errors to calling functions.
-    let result = read_from_file();
+    /* let result = read_from_file();
     match result {
         Ok(str)=>println!("UserName from file is:{}",str),
         Err(error)=>if let ErrorKind::NotFound = error.kind(){
-            let mut file = File::create("hello1.txt").expect("Creation of a file failed");
-            let mut file = File::open("hello1.txt").expect("Opening of file failed");
+            let mut file = File::create("writetofile.txt").expect("Creation of a file failed");
+            let mut file = File::open("writetofile.txt").expect("Opening of file failed");
+            let contents="Manjunath is working".to_string();
+            file.write_all(b"Hello World!");
             let mut fileContent = String::new();
             file.read_to_string(&mut fileContent);
             println!("File Content is:{}",fileContent);
@@ -469,8 +480,105 @@ fn main() {
             panic!("Some other weird error:{:#?}",error);
         }
     }
+    */
+
+    //let mut f=File::create("foo1.txt").expect("Failed");
+    //let mut content = String::from("Today is not Saturday");
+    //f.write_all(content.as_bytes()).expect("Write failed");
+    let mut f=File::open("/etc/logrotate.d/dummy").expect("Failed");
+    let mut newstr = String::new();
+    f.read_to_string(&mut newstr);
+    println!("String inside file is:{}",newstr);
+    let termLogIndex = newstr.find("term.log");
+    let index= if let Some(index)=termLogIndex{
+        index
+    }
+    else{
+        0
+    };
+    let logConfig = &newstr[index..];
+    let startConfigIndex = logConfig.find("{");
+    let startIndex= if let Some(index)=startConfigIndex{
+        index
+    }
+    else{
+        0
+    };
+    let endConfigIndex = logConfig.find("}");
+    let endIndex= if let Some(index)=endConfigIndex{
+        index
+    }
+    else{
+        0
+    };
+
+    let syslogConfig = &logConfig[startIndex..endIndex+1];
+
+    let startRotateIndex=syslogConfig.find("rotate");
+    let startrotatePos = if let Some(pos)=startRotateIndex{
+        pos
+    }
+    else{
+        0
+    };
+    let rotateStr = &syslogConfig[startrotatePos..];
+    let mut firstDigitPos=0;
+    for (pos,ch) in rotateStr.chars().enumerate(){
+        if ch.is_numeric(){
+            firstDigitPos=pos;
+            break;
+        }
+    }
+
+    let newLinePos=rotateStr.find("\n");
+    let startnewlinePos = if let Some(pos)=newLinePos{
+        pos
+    }
+    else{
+        0
+    };
+
+    let rotateValue = &rotateStr[firstDigitPos..startnewlinePos];
+    println!("Rotate value extracted is:{}",rotateValue);
+
+    let newcontent = newstr.replace(rotateValue,"33");
+
+    let mut f=File::create("/etc/logrotate.d/dummy").expect("Failed");
+    f.write_all(newcontent.as_bytes()).expect("Write failed");
+    //f.sync_all().expect("Sunc failed");
+
+   //let path = Path::new("/etc/logrotate.d/dummy");
+   /*  match File::create("writetofile.txt"){
+        Ok(mut file)=>{
+            println!("File opened successfully:");
+            let mut fileContent = String::new();
+            file.read_to_string(&mut fileContent);
+            println!("File Content is:{}",fileContent);
+            /* let mut byteindex=if let Some(index)=fileContent.find("rotate"){
+                index
+            }
+            else {
+                0
+            };
+            */
+            //let rotateval:S//tring = fileContent.chars().skip(byteindex+6).take(1).collect();
+            //let rotateval = fileContent.get(Some(byteindex+7)..Some(byteindex+8));
+            //println!("Rotate value from file is:{:?}",rotateval);
+            let strToreplace = format!("{}{}{}","overwriting"," ",20.to_string());
+            let mut fileContent = fileContent.replace("overwriting",&strToreplace);
+            //let mut fileContent = String::from("Hello World!!");
+            file.write_all(fileContent.as_bytes());
+            file.sync_all();
+            file.read_to_string(&mut fileContent);
+            println!("New File Content is:{}",fileContent);
+        },
+        Err(error)=> {println!("Error opening file:{:?}",error.kind());}
+    }
+    */
+
     quickpractice::quickVerifications();
     generictypes::generictypes();
+    //tests::test_Unequality();
 
 } //End of main()
 
@@ -478,7 +586,7 @@ fn main() {
 /*********************** MAIN ENDED ABOVE *************************************************/
 
 fn read_from_file()->Result<String,io::Error>{
-    let mut f= File::open("hello1.txt")?;
+    let mut f= File::open("writetofile.txt")?;
     let mut str=String::new();
     f.read_to_string(&mut str)?;
     println!("String inside file is:{}",str);
