@@ -1,8 +1,10 @@
-mod front_house {
+pub mod front_house {
     pub mod hosting {
         fn add_waitlist() {}
 
-        pub fn do_seating() {}
+        pub fn do_seating() {
+            println!("In do_seating fun");
+        }
     }
 
     mod serving {
