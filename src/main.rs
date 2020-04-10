@@ -12,6 +12,7 @@ use std::fs::File;
 use std::io::Read;
 use std::io::Write;
 use std::fs::OpenOptions;
+use std::io::BufWriter;
 
 
 extern crate RustPractice;
@@ -541,10 +542,12 @@ fn main() {
     let rotateValue = &rotateStr[firstDigitPos..startnewlinePos];
     println!("Rotate value extracted is:{}",rotateValue);
 
-    let newcontent = newstr.replace(rotateValue,"46");
+    let newcontent = newstr.replace(rotateValue,"121");
 
-    let mut f=File::create("/etc/logrotate.d/dummy").expect("Failed");
-    f.write_all(newcontent.as_bytes()).expect("Write failed");
+    //let mut f=File::create("/etc/logrotate.d/dummy").expect("Failed");
+    let mut f=OpenOptions::new().write(true).open("/etc/logrotate.d/dummy").expect("File Open failed");
+    let mut bw = BufWriter::new(f);
+    bw.write_all(newcontent.as_bytes()).expect("Write failed");
     //f.sync_all().expect("Sunc failed");
 
    //let path = Path::new("/etc/logrotate.d/dummy");

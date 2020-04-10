@@ -1,5 +1,26 @@
 use std::process;
 
+#[derive(Debug)]
+pub struct Sample{
+    name:String,
+    age:u8
+}
+
+impl Sample{
+    pub fn new(index:u8)->Sample{
+        let samp = Sample{
+            name:if index==0{
+                "Manjunath".to_string()
+            }
+            else {
+                "Prathyusha".to_string()
+            },
+            age:30
+        };
+        samp
+    }
+}
+
 pub fn quickVerifications(){
     println!("#### INSIDE quickVerification function ####");
     let mut v = [5, 4, 1, 3, 2];
@@ -25,6 +46,9 @@ pub fn quickVerifications(){
 
     let ret = process::Command::new("sudo").arg("vi /etc/logrotate.d/dummy").output();
     println!("{:#?}",ret);
+
+    let samp = Sample::new(0);
+    println!("Sample struct is:{:#?}",samp);
     println!("#### EXITING quickVerification function ####");
 }
 

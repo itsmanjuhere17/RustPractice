@@ -33,6 +33,17 @@ pub mod front_house {
     }
 }
 
+use std::cmp::Ordering;
+pub fn strCompare(first:String , second:String)->bool{
+    if let Ordering::Equal =first.cmp(&second){
+        true
+    }
+    else {
+        false
+    }
+}
+
+
 use front_house::hosting;
 use front_house::Breakfast; //Using relative path.
 //or
