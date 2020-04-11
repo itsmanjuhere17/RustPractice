@@ -36,6 +36,16 @@ pub fn functionprog(){
     println!("Value of x is:{}",x); //Seems, it does not cause problem to access primitive data types after move.
     let y=10;
     assert!(equal_to(y));
+    //iterators.
+    let eleVec = vec![2,3,4,1,5];
+    let mut iter_ = eleVec.iter();
+    for ele in iter_.next(){
+        println!("vector ele is:{}",ele);
+    }
+    //Methods that consume iterators..
+    let resSum:u32 = iter_.sum(); //Here, sum() consumes the iterator by calling next internally
+    println!("Sum of vector is:{}",resSum);
+    //println!("Using iter_ after sum:{:?}",iter_);
     println!("############### Exiting Function Programming ################");
 }
 
