@@ -15,6 +15,7 @@ use std::fs::OpenOptions;
 use std::io::BufWriter;
 extern crate RustPractice;
 use crate::collectionprograms::vectorCollectionProgram;
+mod functionalprogramming;
 
 struct User{
     name:String,
@@ -487,11 +488,7 @@ fn main() {
     let mut newstr = String::new();
     f.read_to_string(&mut newstr);
     println!("String inside file is:{}",newstr);
-<<<<<<< HEAD
-    let termLogIndex = newstr.find("/var/log/apt/term.log");
-=======
     let termLogIndex = newstr.find("term.log");
->>>>>>> e434eb13cde70e9c057d9ac8900853c381310b03
     let index= if let Some(index)=termLogIndex{
         index
     }
@@ -542,20 +539,12 @@ fn main() {
 
     let rotateValue = &rotateStr[firstDigitPos..startnewlinePos];
     println!("Rotate value extracted is:{}",rotateValue);
-
-<<<<<<< HEAD
     let newcontent = newstr.replace(rotateValue,"121");
 
     //let mut f=File::create("/etc/logrotate.d/dummy").expect("Failed");
     let mut f=OpenOptions::new().write(true).open("/etc/logrotate.d/dummy").expect("File Open failed");
     let mut bw = BufWriter::new(f);
     bw.write_all(newcontent.as_bytes()).expect("Write failed");
-=======
-    let newcontent = newstr.replace(rotateValue,"33");
-
-    let mut f=File::create("/etc/logrotate.d/dummy").expect("Failed");
-    f.write_all(newcontent.as_bytes()).expect("Write failed");
->>>>>>> e434eb13cde70e9c057d9ac8900853c381310b03
     //f.sync_all().expect("Sunc failed");
 
    //let path = Path::new("/etc/logrotate.d/dummy");
@@ -589,6 +578,7 @@ fn main() {
 
     quickpractice::quickVerifications();
     generictypes::generictypes();
+    functionalprogramming::functionprog();
     //tests::test_Unequality();
 
 } //End of main()

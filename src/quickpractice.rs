@@ -1,6 +1,4 @@
 use std::process;
-
-<<<<<<< HEAD
 #[derive(Debug)]
 pub struct Sample{
     name:String,
@@ -21,9 +19,6 @@ impl Sample{
         samp
     }
 }
-
-=======
->>>>>>> e434eb13cde70e9c057d9ac8900853c381310b03
 pub fn quickVerifications(){
     println!("#### INSIDE quickVerification function ####");
     let mut v = [5, 4, 1, 3, 2];
