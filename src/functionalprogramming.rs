@@ -73,6 +73,16 @@ pub fn functionprog(){
     for shoe in filter_shoe{
         println!("Shoe is:{:?}",shoe);
     }
+
+    let sampList = vec![11,21,2,26,4,18,20,13];
+    let mut new_samp_list:Vec<_> = sampList.iter().map(|ele| ele+1 as u32).filter(|ele| *ele%2 == 0).collect();
+    println!("New elements which are even numbers are:");
+    for new_ele in new_samp_list.iter(){
+        println!("{}",new_ele);
+    }
+    let resSum:u32 = new_samp_list.iter().sum(); //Here,onto_iter will take ownership of vector.
+    //println!("vector is:{:#?}",new_samp_list); //Error.
+    println!("New Sum is:{}",resSum);
     println!("############### Exiting Function Programming ################");
 }
 

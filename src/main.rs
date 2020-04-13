@@ -16,6 +16,7 @@ use std::io::BufWriter;
 extern crate RustPractice;
 use crate::collectionprograms::vectorCollectionProgram;
 mod functionalprogramming;
+mod smartpointers;
 
 struct User{
     name:String,
@@ -580,6 +581,7 @@ fn main() {
     generictypes::generictypes();
     functionalprogramming::functionprog();
     //tests::test_Unequality();
+    smartpointers::smart_pointers();
 
 } //End of main()
 
