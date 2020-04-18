@@ -686,9 +686,10 @@ fn passByReference(s:&String)->usize //Passing by reference.
 }
 
 
-fn return_Mutliple(s:String)->(String,usize)
+fn return_Mutliple(mut s:String)->(String,usize)
 {
     let len = s.len();
+    s.push_str("Manjusssss");
     return (s,len);
 }
 
