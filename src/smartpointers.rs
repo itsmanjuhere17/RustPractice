@@ -62,7 +62,7 @@ pub fn smart_pointers(){
     //No runt time penalty.It resolves at compile time.
     let intref = MyBox::new(121); //First it will be dropped.
     //dummy(&intref); //Throws error as types are in-compatible.
-    drop(intref); //Calling drop before hand. Early drop. Defined in std::me,::drop
+    drop(intref); //Calling drop before hand. Early drop. Defined in std::mem::drop
     let strref = MyBox::new("Manjugadu");
     dummy(&strref);
 
@@ -72,6 +72,7 @@ pub fn smart_pointers(){
     {
         let listb = Cons(2,Rc::clone(&lista)); //Here, Rc::clone() does not clone the data. It just increments the reference counting.
         println!("Reference count is:{}",Rc::strong_count(&lista));
+        //println!("Reference count is:{}",Rc::strong_count(&listb));
 
     }
     let listc = Cons(3,Rc::clone(&lista));

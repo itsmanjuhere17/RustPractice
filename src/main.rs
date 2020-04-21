@@ -1,22 +1,21 @@
 use rand::Rng;
-use std::{io,cmp::Ordering,io::ErrorKind}; //Nested Paths. Instead of defining two use statements,we can combine into one.
+use std::{io,cmp::Ordering,io::ErrorKind,io::BufWriter}; //Nested Paths. Instead of defining two use statements,we can combine into one.
 use std::collections::*; //Global operator. Need to be careful when declaring glob operator. what if one of its modules overlap with the defined one here in the file.
 use std::path::Path;
+use std::fs::{File,OpenOptions};
+use std::io::{Read,Write};
 //use std::intrinsics::prefetch_read_instruction;
-pub mod collectionprograms;
-mod quickpractice;
+use RustPractice;
+
+//Modules.
+mod collectionprograms;
+//use collectionprograms; //use doesn't work.Need to figure out.
 mod generictypes;
 mod tests;
-//use quickpractice;
-use std::fs::File;
-use std::io::Read;
-use std::io::Write;
-use std::fs::OpenOptions;
-use std::io::BufWriter;
-extern crate RustPractice;
-use crate::collectionprograms::vectorCollectionProgram;
+mod quickpractice;
 mod functionalprogramming;
 mod smartpointers;
+mod concurrency;
 
 struct User{
     name:String,
@@ -35,7 +34,7 @@ enum Fruit{
 #[derive(Debug)]
 struct Rect{
     length:u32,
-    breadth:u32
+    breadth:u32,
 }
 
 impl Rect{
@@ -430,7 +429,7 @@ fn main() {
     }
 
     //Practicing some programs.
-    vectorCollectionProgram(); //You can call either way.Preferable is below way.
+    collectionprograms::vectorCollectionProgram(); //You can call either way.Preferable is below way.
     collectionprograms::stringtopglatin();
 
     //Error Handling.
@@ -485,7 +484,7 @@ fn main() {
     //let mut f=File::create("foo1.txt").expect("Failed");
     //let mut content = String::from("Today is not Saturday");
     //f.write_all(content.as_bytes()).expect("Write failed");
-    let mut f=File::open("/etc/logrotate.d/dummy").expect("Failed");
+    /* let mut f=File::open("sample.txt").expect("Failed");
     let mut newstr = String::new();
     f.read_to_string(&mut newstr);
     println!("String inside file is:{}",newstr);
@@ -576,12 +575,15 @@ fn main() {
         Err(error)=> {println!("Error opening file:{:?}",error.kind());}
     }
     */
-
+*/
     quickpractice::quickVerifications();
     generictypes::generictypes();
     functionalprogramming::functionprog();
     //tests::test_Unequality();
     smartpointers::smart_pointers();
+    concurrency::fearless_concurrency();
+
+    println!("@@@@@@@@@@@@@@@@@@@@@@@@@@ EXITING MAIN @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 } //End of main()
 

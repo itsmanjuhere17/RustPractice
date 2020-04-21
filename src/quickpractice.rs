@@ -48,6 +48,14 @@ pub fn quickVerifications(){
     let samp = Sample::new(0);
     println!("Sample struct is:{:#?}",samp);
 
+    let ((),y)=((),true);
+    if y{
+        println!("It is true");
+    }
+    else{
+        println!("It is false");
+    }
+
     println!("#### EXITING quickVerification function ####");
 }
 
