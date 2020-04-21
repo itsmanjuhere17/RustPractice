@@ -16,7 +16,7 @@ mod quickpractice;
 mod functionalprogramming;
 mod smartpointers;
 mod concurrency;
-
+mod traitobj;
 struct User{
     name:String,
     age:u32,
@@ -582,7 +582,7 @@ fn main() {
     //tests::test_Unequality();
     smartpointers::smart_pointers();
     concurrency::fearless_concurrency();
-
+    traitobj::trait_objects();
     println!("@@@@@@@@@@@@@@@@@@@@@@@@@@ EXITING MAIN @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 } //End of main()
