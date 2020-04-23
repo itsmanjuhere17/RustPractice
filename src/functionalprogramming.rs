@@ -44,13 +44,13 @@ pub fn functionprog(){
     assert!(equal_to(y));
     //iterators.
     let eleVec = vec![2,3,4,1,5];
-    let mut iter_ = eleVec.iter();
+    let iter_ = eleVec.iter();
     for ele in iter_{
         println!("vector ele is:{}",ele);
     }
     //Methods that consume iterators..
     let eleVec = vec![1,3,6,8];
-    let mut newiter = eleVec.iter();
+    let newiter = eleVec.iter();
     let resSum:u32 = newiter.sum(); //Here, sum() consumes the iterator by calling next internally
     println!("Sum of vector is:{}",resSum);
     //println!("Using iter_ after sum:{:?}",iter_);

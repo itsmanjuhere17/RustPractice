@@ -375,7 +375,7 @@ fn main() {
         println!("{}",by);
     }
     let length = "नमस्ते".len();
-    println!("Length of string in bytes is:{}",length);//Length always gives size of string in bytes.
+    println!("Length of string in bytes is:{} {}",length,"नमस्ते".chars().count());//Length always gives size of string in bytes.
 
     //Hash Maps. Hash table with key and value mapping.
     let mut gameScores = HashMap::new();

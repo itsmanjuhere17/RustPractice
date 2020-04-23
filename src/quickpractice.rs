@@ -20,7 +20,7 @@ impl Sample{
     }
 }
 pub fn quickVerifications(){
-    println!("#### INSIDE quickVerification function ####");
+    println!("################ INSIDE quickVerification function #########################");
     let mut v = [5, 4, 1, 3, 2];
     v.sort_by(|a, b| b.cmp(a)); //b.cmp(a) return list in decreasing order and vice-versa.
     println!("Vector elements are:");
@@ -42,8 +42,8 @@ pub fn quickVerifications(){
 
     println!("{}",format!("{:<18}{}","Manjunath","is a good boy"));//Including the string Manjunath it takes 18 spaces and then print next string.
 
-    let ret = process::Command::new("sudo").arg("vi /etc/logrotate.d/dummy").output();
-    println!("{:#?}",ret);
+    //let ret = process::Command::new("sudo").arg("vi /etc/logrotate.d/dummy").output();
+    //println!("{:#?}",ret);
 
     let samp = Sample::new(0);
     println!("Sample struct is:{:#?}",samp);
@@ -55,8 +55,16 @@ pub fn quickVerifications(){
     else{
         println!("It is false");
     }
+    let samp = "manju";
+    println!("Length of samp is:{}",samp.len());
+    let samp1 = "manju%?_@$";
+    println!("Length of samp1 is:{} {}",samp1.len(),samp1.chars().count());
 
-    println!("#### EXITING quickVerification function ####");
+    let trial = "Manjunathisgood";
+    let new_coll = trial.chars().all(|c| c!=' ');
+    println!("Trim white spaces:{}",new_coll);
+
+    println!("################# EXITING quickVerification function #############################");
 }
 
 #[allow(dead_code)]
