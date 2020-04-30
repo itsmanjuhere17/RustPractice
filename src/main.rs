@@ -17,6 +17,7 @@ mod functionalprogramming;
 mod smartpointers;
 mod concurrency;
 mod traitobj;
+mod advfeatures;
 struct User{
     name:String,
     age:u32,
@@ -583,6 +584,7 @@ fn main() {
     smartpointers::smart_pointers();
     concurrency::fearless_concurrency();
     traitobj::trait_objects();
+    advfeatures::advanced_features();
     println!("@@@@@@@@@@@@@@@@@@@@@@@@@@ EXITING MAIN @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 } //End of main()

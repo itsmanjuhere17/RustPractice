@@ -154,7 +154,7 @@ pub fn trait_objects(){
     blog.add_text("I am Manjunath");
     assert_eq!("",blog.content());
     blog.request_review();
-    assert_eq!("I am",blog.content());
+    assert_eq!("",blog.content());
     blog.publish();
     assert_eq!("I am Manjunath",blog.content());
     println!("################ EXITING TRAIT OBJECTS #########################");

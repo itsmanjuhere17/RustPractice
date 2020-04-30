@@ -36,7 +36,7 @@ impl<T:std::fmt::Debug> Drop for MyBox<T>
 
 //RefCell and Interior mutability
 enum List1{
-    Cons(Rc<RefCell<i32>>,Rc<List>), //Declaring RefCell here so that we can mutate it thought Rc has benn declared outward.
+    Cons(Rc<RefCell<i32>>,Rc<List1>), //Declaring RefCell here so that we can mutate it thought Rc has benn declared outward.
     Nil,
 }
 pub fn smart_pointers(){

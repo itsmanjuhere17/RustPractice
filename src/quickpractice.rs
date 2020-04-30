@@ -5,6 +5,22 @@ pub struct Sample{
     age:u8
 }
 
+struct strTuple(u32,u32);
+
+impl strTuple{
+    fn create(x:u32,y:u32)->strTuple{
+        let tup_str = strTuple(x,y);
+        tup_str
+    }
+}
+
+impl std::fmt::Debug for strTuple{
+    fn fmt(&self,format:&mut std::fmt::Formatter<'_>)->Result<(),std::fmt::Error>{
+        println!("Values of struct tuple are:{} {}",self.1,self.0);
+        Ok(())
+    }
+}
+
 impl Sample{
     pub fn new(index:u8)->Sample{
         let samp = Sample{
@@ -64,6 +80,16 @@ pub fn quickVerifications(){
     let new_coll = trial.chars().all(|c| c!=' ');
     println!("Trim white spaces:{}",new_coll);
 
+    //struct tuples.
+    let tup_str = strTuple(5,6);
+    println!("Tuple struct is:{:#?}",tup_str);
+
+    let mut list_str = vec![String::from("Manju"),String::from("Nath")];
+    for mut item in list_str{ //Moved here
+        item.remove(0);
+        println!("Iterator is:{}",item);
+    }
+    //println!("Printing vector again:{:#?}",list_str); //Error if you un-comment it.
     println!("################# EXITING quickVerification function #############################");
 }
 
