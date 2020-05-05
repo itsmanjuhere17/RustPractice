@@ -120,6 +120,9 @@ pub fn generictypes()
     let mut largeest = find_genLargest(dynVect);
     println!("Largest ele from vector is:{}",largeest);
 
+    let vecString = vec![String::from("Manjuuuuuuuuuuuu"),String::from("Nath")];
+    let largest_str = find_genLargest(vecString);
+    println!("Largest ele from vector is:{}",largest_str);
     //Lifetimes.
     let mut intX = 10;
     let mut intY = 20;
@@ -179,9 +182,9 @@ fn findLargestInt<'a>(item1:&'a mut i32,item2:&'a mut i32)->&'a mut i32{
 
 //Trait Bounds.
 fn find_genLargest<T>(list:Vec<T>)->T
-where T:PartialOrd + Copy + Clone //Types that implement Copy trait will automatically implement Clone.
+where T:PartialOrd + Clone //Types that implement Copy trait will automatically implement Clone.
 {
-    let mut largest = list[0];
+    let mut largest = list[0].clone();
     for ele in list{ //Borrowed as immutable reference.
         if ele > largest{
             largest = ele; //Accessing value should be done via deference operator in case if borrowed as immutable reference.But, cannot update it.

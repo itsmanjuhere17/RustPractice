@@ -124,7 +124,14 @@ impl Blog{
         blog
     }
     fn content(&self)->&str{
-        self.state.as_ref().unwrap().content(self)
+        //let x =self;
+        if let Some(state) = &self.state{
+           state.content(self)
+        }
+        else{
+            ""
+        }
+        //self.state.as_ref().unwrap().content(self)
     }
     fn add_text(&mut self,text:&str){
         self.content.push_str(text);

@@ -535,7 +535,7 @@ fn main() {
         pos
     }
     else{
-        0
+            0
     };
 
     let rotateValue = &rotateStr[firstDigitPos..startnewlinePos];
