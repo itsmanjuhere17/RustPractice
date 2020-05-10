@@ -167,6 +167,7 @@ pub fn quickVerifications(){
 
     let slice_vec = &new_int_vecm[..4];
     println!("Slice vector is:{:#?}",slice_vec);
+    println!("Enter some string");
     let mut input = String::new();
     io::stdin().read_line(&mut input).expect("Reading failed");
     //let input_integ = input.trim().parse().expect("Parsing failed");
