@@ -44,6 +44,44 @@ impl PartialEq for Employee{
     }
 }
 
+//Robot Simulator.
+enum Robot_Movements{
+    L(char),
+    R(char),
+    A(char),
+}
+
+#[derive(Debug)]
+enum Directions{
+    East,
+    West,
+    North,
+    South
+}
+
+#[derive(Debug)]
+struct Robot{
+    x:i32,
+    y:i32,
+    curr_dir:Directions
+}
+
+impl Robot{
+    fn new(x:i32,y:i32,curr_dir:Directions)->Self{
+        let robot = Robot{
+            x,
+            y,
+            curr_dir
+        };
+        robot
+    }
+    fn advance_position(mut self,x:i32,y:i32){
+        self.x+=x;
+        self.y+=y;
+    }
+}
+
+//START.
 pub fn practice_programs(){
     println!("@@@@@@@@@@@@@@@@@@ INSIDE PRACTICE PROGRAMS @@@@@@@@@@@@@@@@@@@@@@@@@@@");
     let thread1 = thread::spawn(||{
@@ -141,7 +179,7 @@ pub fn practice_programs(){
     //Binary Search.
     println!("Binary Serach Algorithm");
     let mut int_list = vec![2,1,4,3,7,5,6];
-    if find_element_bin_search(&mut int_list,6){;
+    if find_element_bin_search(&mut int_list,6){
         println!("Element found");
     }
     else{
@@ -169,7 +207,92 @@ pub fn practice_programs(){
         println!("Employee not found");
     }
 
-    println!("@@@@@@@@@@@@@@@@@@ EXITING PRACTICE PROGRAMS @@@@,@@@@@@@@@@@@@@@@@@@@@@");
+    //Robot Simulator.
+    println!("Enter robot simulator string");
+    let mut robot_input = String::new();
+    io::stdin().read_line(&mut robot_input).expect("Failed to read input string");
+    println!("Enter Robot position and direction");
+    let mut xpos = String::new();
+    io::stdin().read_line(&mut xpos).expect("Failed to read input x position");
+    let x_pos:i32 = xpos.trim().parse().expect("Parsing failed while reading x position");
+    let mut ypos = String::new();
+    io::stdin().read_line(&mut ypos).expect("Failed to read input y position");
+    let y_pos:i32 = ypos.trim().parse().expect("Parsing failed while reading y position");
+    let mut direction = String::new();
+    io::stdin().read_line(&mut direction).expect("Failed to read input direction");
+    let mut direction=direction.trim().to_lowercase();
+    let dir = if direction == "east"{
+        Directions::East
+    }else if direction == "west"{
+        Directions::West
+    }
+    else if direction == "north"{
+        Directions::North
+    }
+    else if direction == "south"{
+        Directions::South
+    }
+    else{
+        panic!("Invalid direction entered");
+    };
+
+    let mut robot = Robot{
+        x:x_pos,
+        y:y_pos,
+        curr_dir:dir
+    };
+    for ch in robot_input.chars(){
+        match robot.curr_dir{
+            Directions::East=>{
+                if ch=='L'{
+                    robot.curr_dir = Directions::North;
+                }
+                else if ch=='R'{
+                    robot.curr_dir = Directions::South;
+                }
+                else if ch=='A'{
+                    robot.x+=1;
+                }
+            },
+            Directions::West=>{
+                if ch=='L'{
+                    robot.curr_dir = Directions::South;
+                }
+                else if ch=='R'{
+                    robot.curr_dir = Directions::North;
+                }
+                else if ch=='A'{
+                    robot.x+=-1;
+                }
+            },
+            Directions::North=>{
+                if ch=='L'{
+                    robot.curr_dir = Directions::West;
+                }
+                else if ch=='R'{
+                    robot.curr_dir = Directions::East;
+                }
+                else if ch=='A'{
+                    robot.y+=1;
+                }
+            },
+            Directions::South=>{
+                if ch=='L'{
+                    robot.curr_dir = Directions::East;
+                }
+                else if ch=='R'{
+                    robot.curr_dir = Directions::West;
+                }
+                else if ch=='A'{
+                    robot.y+=-1;
+                }
+            }
+        }//End of match expression.
+    }//End of for loop.
+    println!("Final position of the robot is:{:#?}",robot);
+
+
+    println!("@@@@@@@@@@@@@@@@@@ EXITING PRACTICE PROGRAMS @@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 }
 
