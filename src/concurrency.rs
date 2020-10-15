@@ -81,5 +81,42 @@ pub fn fearless_concurrency(){
     }
     println!("Final counter value is:{}",*counter.lock().unwrap());
     println!("Arc counting is:{}",Arc::strong_count(&counter));
+
+    let items = vec![10,20,30,40,50];
+    let (tx, rx):(std::sync::mpsc::Sender<i32>, std::sync::mpsc::Receiver<i32>) = mpsc::channel();
+    let th = thread::spawn(move || {
+        for i in 1..=items.len() {
+            if i%2 == 0 {
+                println!("Thread printing even index ele:{}", items[i-1]);
+            }
+            else {
+                tx.send(items[i-1]).unwrap();
+                //thread::sleep(Duration::from_secs(1));
+            }
+        }
+    });
+
+    for recv in rx {
+        println!("Thread printing odd index ele:{}", recv);
+    }
+
+    let vect = vec![11,22,33,44,55];
+    let vect_ref = Arc::new(Mutex::new(vect));
+    let vect_ref1 = Arc::clone(&vect_ref);
+    let vect_ref2 = Arc::clone(&vect_ref);
+
+    let th1 = thread::spawn(move || {
+        //thread::sleep(Duration::from_millis(5));
+        vect_ref1.lock().unwrap().pop();
+    });
+
+    let th2 = thread::spawn(move || {
+        vect_ref2.lock().unwrap().push(66);
+    });
+
+    th1.join().unwrap();
+    th2.join().unwrap();
+
+    println!("Final vector contents are:{:?}", vect_ref.lock().unwrap());
     println!("################# EXITING FEARLESS CONCURRENCY ######################")
 }

@@ -8,8 +8,8 @@ use std::io::{Read,Write};
 use RustPractice;
 
 //Modules.
-mod collectionprograms;
 //use collectionprograms; //use doesn't work.Need to figure out.
+mod collectionprograms;
 mod generictypes;
 mod tests;
 mod quickpractice;
